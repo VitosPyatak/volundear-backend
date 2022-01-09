@@ -16,20 +16,20 @@ services:
     env_file:
       - .env
     depends_on:
-      - ${MONGO_HOST}
+      - app-mongo
     links:
-      - ${MONGO_HOST}
+      - app-mongo
     volumes:
       - .:/app
       - /app/node_modules
 
   app-mongo:
-    image: mongo:5.0.0
     container_name: ${MONGO_HOST}
-    env_file:
-      - .env
+    image: mongo:5.0.0
     ports:
       - 27018:${MONGO_PORT}
+    env_file:
+      - .env
     volumes:
       - mongodb-data:/data/db
     networks:
