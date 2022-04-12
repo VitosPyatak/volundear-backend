@@ -8,3 +8,10 @@ export enum VolunteerRequestStatus {
   closed = 'closed',
   onHold = 'onHold',
 }
+
+export enum VolunteerRequestCategory {
+  military = 'military',
+  transportation = 'transportation',
+  animals = 'animals',
+  other = 'other',
+}

@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ObjectId } from 'mongoose';
 import { VolunteerRequestService } from 'volunteer-request/volunteer-request.service';
 import { UserDAO } from './user.dao';
+import { UserNotFoundByIdException } from './user.exception';
+import { UserManager } from './user.manager';
 
 @Injectable()
 export class UserService {
@@ -9,15 +11,14 @@ export class UserService {
 
   public getById = (id: string | ObjectId) => {
     return this.userDao.getById(id).then((user) => {
-      // TODO: create custom user
-      if (!user) throw new Error('No such user');
-      return user;
+      if (!user) throw new UserNotFoundByIdException(id);
+      return UserManager.fromDocument(user);
     });
   };
 
   public getByIdWithRequests = (id: string | ObjectId) => {
     return this.getById(id).then((user) => {
-      return this.volunteerRequestService.getByOwnerId(id, { populate: true }).then((requests) => ({ ...user, requests }));
+      return this.volunteerRequestService.getByOwnerId(id, { populate: true }).then((requests) => user.setRequests(requests));
     });
   };
 }

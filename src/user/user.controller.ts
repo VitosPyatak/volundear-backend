@@ -7,6 +7,6 @@ export class UserController {
 
   @Get(':id')
   public getUser(@Param('id') id: string) {
-    return this.userService.getByIdWithRequests(id);
+    return this.userService.getByIdWithRequests(id).then((user) => user.json());
   }
 }

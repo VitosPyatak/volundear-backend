@@ -2,7 +2,7 @@ import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId, SchemaTypes } from 'mongoose';
 import { collectionsNames } from 'configurations/configurations.configs';
 import { UserModel } from 'user/user.schema';
-import { VolunteerRequestStatus } from 'user/user.types';
+import { VolunteerRequestCategory, VolunteerRequestStatus } from 'user/user.types';
 
 @Schema({ collection: collectionsNames.volunteerRequests })
 export class VolunteerRequestModel {
@@ -14,8 +14,7 @@ export class VolunteerRequestModel {
 
   @Prop({ type: String, enum: Object.values(VolunteerRequestStatus) }) status: VolunteerRequestStatus;
 
-  // TODO: create categories enum
-  @Prop({ type: String }) category: string;
+  @Prop({ type: String, enum: Object.values(VolunteerRequestCategory) }) category: VolunteerRequestCategory;
 
   @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: UserModel.name }] }) assingees: ObjectId | UserModel;
 }
