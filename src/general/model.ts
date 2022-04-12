@@ -1,7 +1,7 @@
-export class ClassModel {
-  protected constructor(protected readonly data: any = {}) {}
+import { Transform } from 'class-transformer';
+import { ObjectId } from 'mongoose';
 
-  public stringify = () => {
-    return JSON.stringify(this.data);
-  };
+export class ClassModel {
+  @Transform(({ value }) => value.toString())
+  _id: ObjectId;
 }

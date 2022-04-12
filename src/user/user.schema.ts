@@ -1,8 +1,9 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { collectionsNames } from 'configurations/configurations.configs';
+import { ClassModel } from 'general/model';
 
 @Schema({ collection: collectionsNames.users })
-export class UserModel {
+export class UserModel extends ClassModel {
   @Prop() firstname: string;
 
   @Prop() lastname: string;

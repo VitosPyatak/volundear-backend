@@ -9,6 +9,6 @@ export class VolunteerRequestDAO {
   constructor(@InjectModel(VolunteerRequestModel.name) private readonly volunteerRequest: Model<VolunteerRequestDocument>) {}
 
   public findByOwnerId = (owner: string | ObjectId) => {
-    return this.volunteerRequest.find({ owner });
+    return this.volunteerRequest.find({ owner }).lean();
   };
 }

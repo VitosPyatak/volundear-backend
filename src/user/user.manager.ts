@@ -13,7 +13,8 @@ export class UserManager {
   };
 
   public json = () => {
-    return instanceToPlain(this.user);
+    const user = instanceToPlain(this.user);
+    return user;
   };
 
   public setRequests = (requests: VolunteerRequest[]) => {
