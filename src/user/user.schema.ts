@@ -1,6 +1,7 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { collectionsNames } from 'configurations/configurations.configs';
 
-@Schema()
+@Schema({ collection: collectionsNames.users })
 export class UserModel {
   @Prop() firstname: string;
 
@@ -10,9 +11,11 @@ export class UserModel {
 
   @Prop() phoneNumber: string;
 
+  @Prop() profilePicture: string;
+
   @Prop() isVerified: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserModel);
 
-export const userModelDefinition: ModelDefinition = { name: UserModel.name, schema: UserModel };
+export const userModelDefinition: ModelDefinition = { name: UserModel.name, schema: UserSchema };

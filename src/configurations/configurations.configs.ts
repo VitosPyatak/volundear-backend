@@ -9,3 +9,8 @@ export const variableNames = Object.freeze({
     database: 'MONGO_DB',
   },
 });
+
+export const collectionsNames = {
+  users: 'users',
+  volunteerRequests: 'volunteer-requests',
+};

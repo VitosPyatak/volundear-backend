@@ -1,6 +1,6 @@
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigurationsManager } from 'src/configurations/configurations.manager';
-import { ConfigurationsModule } from 'src/configurations/configurations.module';
+import { ConfigurationsManager } from 'configurations/configurations.manager';
+import { ConfigurationsModule } from 'configurations/configurations.module';
 
 export const MongoModule = MongooseModule.forRootAsync({
   imports: [ConfigurationsModule],
