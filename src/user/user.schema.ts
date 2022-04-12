@@ -1,4 +1,5 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Transform } from 'class-transformer';
 import { collectionsNames } from 'configurations/configurations.configs';
 import { ClassModel } from 'general/model';
 
