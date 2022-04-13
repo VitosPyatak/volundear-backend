@@ -17,4 +17,8 @@ export class UserDAO {
   public search = (phrase: string, fields: string[]) => {
     return this.userDao.find({ $or: createBasicSearchQuery(phrase, fields) }).lean();
   };
+
+  public createOne = (user) => {
+    return this.userDao.create(user);
+  };
 }

@@ -6,6 +6,7 @@ import { propertyOf } from 'utils/propertyOf';
 import { User } from './user';
 import { userSearchFields } from './user.configs';
 import { UserDAO } from './user.dao';
+import { CreateUserDTO } from './user.dto';
 import { UserNotFoundByIdException } from './user.exception';
 import { UserModel } from './user.schema';
 import { UserDocument } from './user.types';
@@ -20,6 +21,11 @@ export class UserService {
 
   public doesUserExist = (id: string | ObjectId) => {
     return this.userDao.getById(id, { projection: objectIdProjection }).then((user) => this.processUserFind(id, user));
+  };
+
+  public createFromDTO = (dto: CreateUserDTO) => {
+    const user = ConverterManager.toPlain(dto);
+    return this.userDao.createOne(user);
   };
 
   public search = (phrase: string) => {

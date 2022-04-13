@@ -3,7 +3,6 @@ import { LeanDocument, ObjectId, Query } from 'mongoose';
 import { VolunteerRequestDAO } from './volunteer-request.dao';
 import { propertyOf } from 'utils/propertyOf';
 import { VolunteerRequestDocument } from './volunteer-request.types';
-import { instanceToPlain } from 'class-transformer';
 import { VolunteerRequest } from './volunteer-request';
 import { CreateVolunteerRequestDTO } from './volunteer-request.dto';
 import { PaginationParams } from 'general/dto';
@@ -28,7 +27,7 @@ export class VolunteerRequestService {
   };
 
   public createFromDTO = (dto: CreateVolunteerRequestDTO) => {
-    const volunteerRequest = instanceToPlain(dto);
+    const volunteerRequest = ConverterManager.toPlain(dto);
     return this.volunteerRequestDAO.createOne(volunteerRequest);
   };
 
