@@ -1,21 +1,20 @@
 import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Transform } from 'class-transformer';
 import { collectionsNames } from 'configurations/configurations.configs';
 import { ClassModel } from 'general/model';
 
 @Schema({ collection: collectionsNames.users })
 export class UserModel extends ClassModel {
-  @Prop() firstname: string;
+  @Prop({ type: String }) firstname: string;
 
-  @Prop() lastname: string;
+  @Prop({ type: String }) lastname: string;
 
-  @Prop() description: string;
+  @Prop({ type: String }) description: string;
 
-  @Prop() phoneNumber: string;
+  @Prop({ type: String }) phoneNumber: string;
 
-  @Prop() profilePicture: string;
+  @Prop({ type: String }) profilePicture: string;
 
-  @Prop() isVerified: boolean;
+  @Prop({ type: Boolean }) isVerified: boolean;
 }
 
 export const UserSchema = SchemaFactory.createForClass(UserModel);

@@ -3,5 +3,7 @@ export type QueryOptions = {
 };
 
 export type DAOQueryOptions = {
-  projection;
+  projection?;
+  skip?: number;
+  limit?: number;
 };

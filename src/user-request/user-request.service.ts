@@ -10,7 +10,7 @@ export class UserRequestService {
 
   public getByIdWithRequests = (id: string | ObjectId) => {
     return this.userService.getById(id).then((user) => {
-      return this.volunteerRequestService.getByOwnerId(id, { populate: true }).then((requests) => user.setRequests(requests));
+      return this.volunteerRequestService.getByOwnerId(id).then((requests) => user.setRequests(requests));
     });
   };
 

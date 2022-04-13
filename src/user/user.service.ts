@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { plainToInstance } from 'class-transformer';
+import { ConverterManager } from 'converter/converter.manager';
 import { objectIdProjection } from 'general/projections';
 import { LeanDocument, ObjectId } from 'mongoose';
 import { User } from './user';
@@ -21,6 +21,6 @@ export class UserService {
 
   private processUserFind = (id: string | ObjectId, user: LeanDocument<UserDocument>) => {
     if (!user) throw new UserNotFoundByIdException(id);
-    return plainToInstance(User, user);
+    return ConverterManager.toInstance(User, user);
   };
 }
