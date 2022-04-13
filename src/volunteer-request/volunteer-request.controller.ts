@@ -1,8 +1,6 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Query } from '@nestjs/common';
-import { instanceToPlain } from 'class-transformer';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, Query } from '@nestjs/common';
 import { PaginationParams, RecordByIdParams } from 'general/dto';
 import { UserRequestService } from 'user-request/user-request.service';
-import { VolunteerRequest } from './volunteer-request';
 import { CreateVolunteerRequestDTO } from './volunteer-request.dto';
 import { VolunteerRequestService } from './volunteer-request.service';
 
@@ -18,7 +16,7 @@ export class VolunteerRequestController {
 
   @Get()
   public getPagination(@Query() paginationParams: PaginationParams) {
-    return this.volunteerRequestService.getPaginationRequests(paginationParams).then(this.convertToDTO);
+    return this.volunteerRequestService.getPaginationRequests(paginationParams);
   }
 
   @Get(':id')
@@ -26,7 +24,13 @@ export class VolunteerRequestController {
     return this.volunteerRequestService.getById(params.id);
   }
 
-  public convertToDTO = (requests: VolunteerRequest[]) => {
-    return instanceToPlain(requests);
-  };
+  @Put(':id/assignee/add')
+  public addAssignee(@Param() params: RecordByIdParams, @Body() body: RecordByIdParams) {
+    return this.volunteerRequestService.addAssignee(params.id, body.id);
+  }
+
+  @Put(':id/assignee/remove')
+  public removeAssignee(@Param() params: RecordByIdParams, @Body() body: RecordByIdParams) {
+    return this.volunteerRequestService.removeAssignee(params.id, body.id);
+  }
 }

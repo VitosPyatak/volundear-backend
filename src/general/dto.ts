@@ -1,5 +1,6 @@
 import { Transform } from 'class-transformer';
 import { IsNotEmpty } from 'class-validator';
+import { IsObjectId } from 'decorators/is-objectid/is-objectid.decorator';
 
 export class PaginationParams {
   @IsNotEmpty()
@@ -16,5 +17,5 @@ export class RecordsSearchParams {
 }
 
 export class RecordByIdParams {
-  @IsNotEmpty() id: string;
+  @IsObjectId() id: string;
 }

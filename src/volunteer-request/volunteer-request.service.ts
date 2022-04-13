@@ -42,7 +42,15 @@ export class VolunteerRequestService {
     return this.volunteerRequestDAO.search(phrase, volunteerRequestSearchFields);
   };
 
-  private convertDocumentsToInstances = (requests: LeanDocument<VolunteerRequestDocument>[]) => {
+  public addAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
+    return this.volunteerRequestDAO.addAssignee(id, assigneeId);
+  };
+
+  public removeAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
+    return this.volunteerRequestDAO.removeAssignee(id, assigneeId);
+  };
+
+  private convertDocumentsToInstances = (requests: LeanDocument<VolunteerRequestDocument>[] | LeanDocument<VolunteerRequestDocument>) => {
     return ConverterManager.toInstance(VolunteerRequest, requests);
   };
 

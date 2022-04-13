@@ -29,4 +29,12 @@ export class VolunteerRequestDAO {
   public search = (phrase: string, fields: string[]) => {
     return this.volunteerRequestDao.find({ $or: createBasicSearchQuery(phrase, fields) }).lean();
   };
+
+  public addAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
+    return this.volunteerRequestDao.updateOne({ _id: id }, { $addToSet: { assingees: assigneeId } }).lean();
+  };
+
+  public removeAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
+    return this.volunteerRequestDao.updateOne({ _id: id }, { $pull: { assingees: assigneeId } }).lean();
+  };
 }
