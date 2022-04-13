@@ -1,7 +1,7 @@
 import { Document } from 'mongoose';
 import { VolunteerRequestModel } from './volunteer-request.schema';
 
-export type VolunteerRequestDocument = VolunteerRequestModel | Document;
+export type VolunteerRequestDocument = VolunteerRequestModel & Document;
 
 export enum VolunteerRequestStatus {
   active = 'active',

@@ -13,6 +13,7 @@ export const variableNames = Object.freeze({
 export const collectionsNames = {
   users: 'users',
   volunteerRequests: 'volunteer-requests',
+  comments: 'request-comments',
 };
 
 export const signs = {

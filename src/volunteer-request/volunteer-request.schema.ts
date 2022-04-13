@@ -4,8 +4,9 @@ import { collectionsNames } from 'configurations/configurations.configs';
 import { UserModel } from 'user/user.schema';
 import { ClassModel } from 'general/model';
 import { VolunteerRequestCategory, VolunteerRequestStatus } from './volunteer-request.types';
+import { defaultSchemaOptions } from 'utils/schemaOptions';
 
-@Schema({ collection: collectionsNames.volunteerRequests })
+@Schema(defaultSchemaOptions(collectionsNames.volunteerRequests))
 export class VolunteerRequestModel extends ClassModel {
   @Prop({ type: String }) title: string;
 
