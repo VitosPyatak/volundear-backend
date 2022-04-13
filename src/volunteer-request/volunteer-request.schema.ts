@@ -2,8 +2,8 @@ import { ModelDefinition, Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ObjectId, SchemaTypes } from 'mongoose';
 import { collectionsNames } from 'configurations/configurations.configs';
 import { UserModel } from 'user/user.schema';
-import { VolunteerRequestCategory, VolunteerRequestStatus } from 'user/user.types';
 import { ClassModel } from 'general/model';
+import { VolunteerRequestCategory, VolunteerRequestStatus } from './volunteer-request.types';
 
 @Schema({ collection: collectionsNames.volunteerRequests })
 export class VolunteerRequestModel extends ClassModel {
