@@ -10,3 +10,7 @@ export class PaginationParams {
   @Transform(({ obj, value }) => +value * +obj.limit)
   page: number;
 }
+
+export class RecordsSearchParams {
+  @IsNotEmpty() search: string;
+}

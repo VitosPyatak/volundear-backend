@@ -19,4 +19,8 @@ export class UserRequestService {
       return this.volunteerRequestService.createFromDTO(dto);
     }
   };
+
+  public searchUsersAndVolunterRequests = (phrase: string) => {
+    return Promise.all([this.userService.search(phrase)]).then(([users]) => ({ users }));
+  };
 }

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Query } from '@nestjs/common';
 import { instanceToPlain } from 'class-transformer';
-import { PaginationParams } from 'general/pagination.dto';
+import { PaginationParams } from 'general/dto';
 import { UserRequestService } from 'user-request/user-request.service';
 import { VolunteerRequest } from './volunteer-request';
 import { CreateVolunteerRequestDTO } from './volunteer-request.dto';

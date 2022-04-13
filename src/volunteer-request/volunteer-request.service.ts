@@ -6,7 +6,7 @@ import { VolunteerRequestDocument } from './volunteer-request.types';
 import { instanceToPlain } from 'class-transformer';
 import { VolunteerRequest } from './volunteer-request';
 import { CreateVolunteerRequestDTO } from './volunteer-request.dto';
-import { PaginationParams } from 'general/pagination.dto';
+import { PaginationParams } from 'general/dto';
 import { volunteerRequestManyPaginationProjection } from './volunteer-request.projection';
 import { ConverterManager } from 'converter/converter.manager';
 import { ownerRequestProjection } from 'user/user.projection';

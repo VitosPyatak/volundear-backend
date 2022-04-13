@@ -14,3 +14,7 @@ export const collectionsNames = {
   users: 'users',
   volunteerRequests: 'volunteer-requests',
 };
+
+export const signs = {
+  whitespace: ' ',
+};
