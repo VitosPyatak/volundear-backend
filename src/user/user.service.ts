@@ -1,24 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { plainToInstance } from 'class-transformer';
 import { ObjectId } from 'mongoose';
 import { VolunteerRequestService } from 'volunteer-request/volunteer-request.service';
+import { User } from './user';
 import { UserDAO } from './user.dao';
 import { UserNotFoundByIdException } from './user.exception';
-import { UserManager } from './user.manager';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userDao: UserDAO, private readonly volunteerRequestService: VolunteerRequestService) {}
+  constructor(private readonly userDao: UserDAO) {}
 
   public getById = (id: string | ObjectId) => {
     return this.userDao.getById(id).then((user) => {
       if (!user) throw new UserNotFoundByIdException(id);
-      return UserManager.fromDocument(user);
-    });
-  };
-
-  public getByIdWithRequests = (id: string | ObjectId) => {
-    return this.getById(id).then((user) => {
-      return this.volunteerRequestService.getByOwnerId(id, { populate: true }).then((requests) => user.setRequests(requests));
+      return plainToInstance(User, user);
     });
   };
 }

@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
-import { UserController } from 'user/user.controller';
+import { UserRequestModule } from 'user-request/user-request.module';
 import { AppService } from './app.service';
 import { HttpRequestModule } from './http-request/http-request.module';
 import { MongoModule } from './mongo/mongo.module';
 import { ScheduleTaskModule } from './schedule/schedule.module';
-import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [ScheduleTaskModule, MongoModule, HttpRequestModule, UserModule],
+  imports: [ScheduleTaskModule, MongoModule, HttpRequestModule, UserRequestModule],
   controllers: [],
   providers: [AppService],
 })
