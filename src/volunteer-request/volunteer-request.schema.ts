@@ -11,13 +11,14 @@ export class VolunteerRequestModel extends ClassModel {
 
   @Prop({ type: String }) description: string;
 
-  @Prop({ type: SchemaTypes.ObjectId, ref: UserModel.name }) owner: ObjectId | UserModel;
+  @Prop({ type: SchemaTypes.ObjectId, ref: UserModel.name }) owner: ObjectId | UserModel | string;
 
-  @Prop({ type: String, enum: Object.values(VolunteerRequestStatus) }) status: VolunteerRequestStatus;
+  @Prop({ type: String, enum: Object.values(VolunteerRequestStatus), default: VolunteerRequestStatus.active })
+  status: VolunteerRequestStatus;
 
   @Prop({ type: String, enum: Object.values(VolunteerRequestCategory) }) category: VolunteerRequestCategory;
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: UserModel.name }] }) assingees: ObjectId | UserModel;
+  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: UserModel.name }] }) assingees: (ObjectId | UserModel | string)[];
 }
 
 export const VolunteerRequestSchema = SchemaFactory.createForClass(VolunteerRequestModel);
