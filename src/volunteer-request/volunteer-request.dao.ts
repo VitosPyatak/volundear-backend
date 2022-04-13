@@ -14,6 +14,10 @@ export class VolunteerRequestDAO {
     return this.volunteerRequestDao.find({ owner }).lean();
   };
 
+  public findById = (id: string | ObjectId) => {
+    return this.volunteerRequestDao.find({ _id: id }).lean();
+  };
+
   public createOne = (document) => {
     return this.volunteerRequestDao.create(document);
   };

@@ -21,6 +21,12 @@ export class VolunteerRequestService {
     return query.then(this.convertDocumentsToInstances);
   };
 
+  public getById = (id: string | ObjectId) => {
+    const query = this.volunteerRequestDAO.findById(id);
+    this.populateOwnerAndAssignees(query);
+    return query.then(this.convertDocumentsToInstances);
+  };
+
   public createFromDTO = (dto: CreateVolunteerRequestDTO) => {
     const volunteerRequest = instanceToPlain(dto);
     return this.volunteerRequestDAO.createOne(volunteerRequest);
@@ -42,5 +48,10 @@ export class VolunteerRequestService {
 
   private populatePaginationRequests = (query: Query<any, any>) => {
     query.populate(propertyOf<VolunteerRequest>('owner'), ownerRequestProjection);
+  };
+
+  private populateOwnerAndAssignees = (query: Query<any, any>) => {
+    query.populate(propertyOf<VolunteerRequest>('owner'), ownerRequestProjection);
+    query.populate(propertyOf<VolunteerRequest>('assingees'), ownerRequestProjection);
   };
 }

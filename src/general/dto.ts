@@ -14,3 +14,7 @@ export class PaginationParams {
 export class RecordsSearchParams {
   @IsNotEmpty() search: string;
 }
+
+export class RecordByIdParams {
+  @IsNotEmpty() id: string;
+}
