@@ -21,6 +21,9 @@ export class UserRequestService {
   };
 
   public searchUsersAndVolunterRequests = (phrase: string) => {
-    return Promise.all([this.userService.search(phrase)]).then(([users]) => ({ users }));
+    return Promise.all([this.userService.search(phrase), this.volunteerRequestService.search(phrase)]).then(([users, requests]) => ({
+      users,
+      requests,
+    }));
   };
 }

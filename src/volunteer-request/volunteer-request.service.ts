@@ -10,6 +10,7 @@ import { PaginationParams } from 'general/dto';
 import { volunteerRequestManyPaginationProjection } from './volunteer-request.projection';
 import { ConverterManager } from 'converter/converter.manager';
 import { ownerRequestProjection } from 'user/user.projection';
+import { volunteerRequestSearchFields } from './volunteer-request.configs';
 
 @Injectable()
 export class VolunteerRequestService {
@@ -29,6 +30,10 @@ export class VolunteerRequestService {
     const query = this.volunteerRequestDAO.findMany({ projection: volunteerRequestManyPaginationProjection, limit, skip: page });
     this.populatePaginationRequests(query);
     return query.then(this.convertDocumentsToInstances);
+  };
+
+  public search = (phrase: string) => {
+    return this.volunteerRequestDAO.search(phrase, volunteerRequestSearchFields);
   };
 
   private convertDocumentsToInstances = (requests: LeanDocument<VolunteerRequestDocument>[]) => {
