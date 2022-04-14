@@ -6,3 +6,5 @@ export const wsEventNames = {
 export const defaultEventRooms = {
   general: 'general',
 };
+
+export const eventTemplate = (event: string, data) => ({ event, data });

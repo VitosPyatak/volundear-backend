@@ -1,11 +1,11 @@
 import { ConnectedSocket, MessageBody, OnGatewayConnection, SubscribeMessage, WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
-import { defaultEventRooms, wsEventNames } from 'events/events.configs';
+import { defaultEventRooms, eventTemplate, wsEventNames } from 'events/events.configs';
 import { Socket, Server } from 'socket.io';
 
 import { CommentSentDTO, UserJoinedRoomDTO } from './request-comment.dto';
 import { RequestCommentService } from './request-comment.service';
 
-@WebSocketGateway({ namespace: 'comments' })
+@WebSocketGateway({ namespace: 'comments', cors: true })
 export class CommentsGateway implements OnGatewayConnection {
   constructor(private readonly requestCommentsService: RequestCommentService) {}
 
@@ -23,7 +23,9 @@ export class CommentsGateway implements OnGatewayConnection {
 
   @SubscribeMessage(wsEventNames.comments)
   public handleCommentSent(@MessageBody() data: CommentSentDTO, @ConnectedSocket() client: Socket) {
-    this.requestCommentsService.createFromDTO(data);
-    client.to(data.request).emit(wsEventNames.comments, data);
+    return this.requestCommentsService.createFromDTO(data).then((comment) => {
+      client.to(data.request).emit(wsEventNames.comments, comment.toJSON());
+      return eventTemplate(wsEventNames.comments, comment.toJSON());
+    });
   }
 }
