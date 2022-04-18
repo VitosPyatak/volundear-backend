@@ -19,7 +19,7 @@ export class VolunteerRequestModel extends ClassModel {
 
   @Prop({ type: String, enum: Object.values(VolunteerRequestCategory) }) category: VolunteerRequestCategory;
 
-  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: UserModel.name }] }) assingees: (ObjectId | UserModel | string)[];
+  @Prop({ type: [{ type: SchemaTypes.ObjectId, ref: UserModel.name }] }) assignees: (ObjectId | UserModel | string)[];
 }
 
 export const VolunteerRequestSchema = SchemaFactory.createForClass(VolunteerRequestModel);

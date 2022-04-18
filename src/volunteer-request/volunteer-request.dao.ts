@@ -15,7 +15,7 @@ export class VolunteerRequestDAO {
   };
 
   public findById = (id: string | ObjectId) => {
-    return this.volunteerRequestDao.find({ _id: id }).lean();
+    return this.volunteerRequestDao.findOne({ _id: id }).lean();
   };
 
   public createOne = (document) => {
@@ -31,10 +31,10 @@ export class VolunteerRequestDAO {
   };
 
   public addAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
-    return this.volunteerRequestDao.updateOne({ _id: id }, { $addToSet: { assingees: assigneeId } }).lean();
+    return this.volunteerRequestDao.updateOne({ _id: id }, { $addToSet: { assignees: assigneeId } }).lean();
   };
 
   public removeAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
-    return this.volunteerRequestDao.updateOne({ _id: id }, { $pull: { assingees: assigneeId } }).lean();
+    return this.volunteerRequestDao.updateOne({ _id: id }, { $pull: { assignees: assigneeId } }).lean();
   };
 }

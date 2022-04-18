@@ -7,3 +7,8 @@ export type DAOQueryOptions = {
   skip?: number;
   limit?: number;
 };
+
+export type DocumentTimestamps = {
+  createdAt;
+  updatedAt;
+};

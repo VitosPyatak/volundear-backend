@@ -8,12 +8,6 @@ import { VolunteerRequestService } from 'volunteer-request/volunteer-request.ser
 export class UserRequestService {
   constructor(private readonly userService: UserService, private readonly volunteerRequestService: VolunteerRequestService) {}
 
-  public getByIdWithRequests = (id: string | ObjectId) => {
-    return this.userService.getById(id).then((user) => {
-      return this.volunteerRequestService.getByOwnerId(id).then((requests) => user.setRequests(requests));
-    });
-  };
-
   public createRequestFromDTO = async (dto: CreateVolunteerRequestDTO) => {
     if (await this.userService.doesUserExist(dto.owner)) {
       return this.volunteerRequestService.createFromDTO(dto);
@@ -25,5 +19,11 @@ export class UserRequestService {
       users,
       requests,
     }));
+  };
+
+  public getRequestsByOwnerId = async (id: string) => {
+    if (await this.userService.doesUserExist(id)) {
+      return this.volunteerRequestService.getByOwnerId(id);
+    }
   };
 }

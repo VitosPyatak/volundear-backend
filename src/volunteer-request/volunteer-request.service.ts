@@ -7,9 +7,9 @@ import { VolunteerRequest } from './volunteer-request';
 import { CreateVolunteerRequestDTO } from './volunteer-request.dto';
 import { PaginationParams } from 'general/dto';
 import { volunteerRequestManyPaginationProjection } from './volunteer-request.projection';
-import { ConverterManager } from 'converter/converter.manager';
 import { ownerRequestProjection } from 'user/user.projection';
 import { volunteerRequestSearchFields } from './volunteer-request.configs';
+import { instanceToPlain, plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class VolunteerRequestService {
@@ -17,7 +17,8 @@ export class VolunteerRequestService {
 
   public getByOwnerId = (ownerId: string | ObjectId) => {
     const query = this.volunteerRequestDAO.findByOwnerId(ownerId);
-    return query.then(this.convertDocumentsToInstances);
+    this.populatePaginationRequests(query);
+    return query.then((requests) => plainToInstance(VolunteerRequest, requests));
   };
 
   public getById = (id: string | ObjectId) => {
@@ -27,7 +28,7 @@ export class VolunteerRequestService {
   };
 
   public createFromDTO = (dto: CreateVolunteerRequestDTO) => {
-    const volunteerRequest = ConverterManager.toPlain(dto);
+    const volunteerRequest = instanceToPlain(dto);
     return this.volunteerRequestDAO.createOne(volunteerRequest);
   };
 
@@ -38,7 +39,9 @@ export class VolunteerRequestService {
   };
 
   public search = (phrase: string) => {
-    return this.volunteerRequestDAO.search(phrase, volunteerRequestSearchFields);
+    const query = this.volunteerRequestDAO.search(phrase, volunteerRequestSearchFields);
+    this.populatePaginationRequests(query);
+    return query;
   };
 
   public addAssignee = (id: string | ObjectId, assigneeId: string | ObjectId) => {
@@ -50,7 +53,7 @@ export class VolunteerRequestService {
   };
 
   private convertDocumentsToInstances = (requests: LeanDocument<VolunteerRequestDocument>[] | LeanDocument<VolunteerRequestDocument>) => {
-    return ConverterManager.toInstance(VolunteerRequest, requests);
+    return plainToInstance(VolunteerRequest, requests);
   };
 
   private populatePaginationRequests = (query: Query<any, any>) => {
@@ -59,6 +62,6 @@ export class VolunteerRequestService {
 
   private populateOwnerAndAssignees = (query: Query<any, any>) => {
     query.populate(propertyOf<VolunteerRequest>('owner'), ownerRequestProjection);
-    query.populate(propertyOf<VolunteerRequest>('assingees'), ownerRequestProjection);
+    query.populate(propertyOf<VolunteerRequest>('assignees'), ownerRequestProjection);
   };
 }

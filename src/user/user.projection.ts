@@ -6,4 +6,5 @@ export const ownerRequestProjection = {
   [propertyOf<UserModel>('firstname')]: 1,
   [propertyOf<UserModel>('lastname')]: 1,
   [propertyOf<UserModel>('isVerified')]: 1,
+  [propertyOf<UserModel>('profilePicture')]: 1,
 };
