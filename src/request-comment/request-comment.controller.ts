@@ -1,5 +1,4 @@
 import { Controller, Get, Query } from '@nestjs/common';
-import { PaginationParams } from 'general/dto';
 import { CommentsRoomPaginationParams } from './request-comment.dto';
 import { RequestCommentService } from './request-comment.service';
 

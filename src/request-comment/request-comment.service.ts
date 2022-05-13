@@ -14,7 +14,9 @@ export class RequestCommentService {
 
   public createFromDTO = (dto: CommentSentDTO) => {
     const comment = ConverterManager.toPlain(dto);
-    return this.requestCommentDAO.createOne(comment);
+    return this.requestCommentDAO.createOne(comment).then((createdComment) => {
+      return createdComment.populate(propertyOf<RequestCommentModel>('sender'));
+    });
   };
 
   public getPaginationComments = ({ limit, page, request }: CommentsRoomPaginationParams) => {
