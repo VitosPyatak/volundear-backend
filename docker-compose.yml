@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  app-backend:
+    container_name: ${APP_NAME}
+    image: ${APP_NAME}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    command: npm run start:prod
+    ports:
+      - ${PORT}:${PORT}
+    networks:
+      - app-network
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - app-mongo
+    links:
+      - app-mongo
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+  app-mongo:
+    container_name: ${MONGO_HOST}
+    image: mongo:5.0.0
+    ports:
+      - 27018:${MONGO_PORT}
+    env_file:
+      - .env
+    volumes:
+      - mongodb-data:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  mongodb-data:
+
